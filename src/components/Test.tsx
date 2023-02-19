@@ -1,1 +1,1 @@
-export default () => <div>test</div>
+export default () => <div>I am the Test CPN</div>
