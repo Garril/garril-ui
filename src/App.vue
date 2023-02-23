@@ -11,6 +11,8 @@
     <GButton type="primary" size="small" disabled @click="confirm"
       >确定</GButton
     >
+    <GButton type="primary" size="medium" block>primary-block</GButton>
+    <GButton type="secondary" size="medium" block>secondary-block</GButton>
   </div>
 </template>
 
