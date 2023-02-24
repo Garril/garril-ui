@@ -3,7 +3,9 @@
   将所有require改为import也行，但__dirname的引入反而麻烦
 */
 const path = require('path')
+const fs = require('fs')
 const { defineConfig, build } = require('vite')
+
 // 基础配置
 const vue = require('@vitejs/plugin-vue')
 const vueJsx = require('@vitejs/plugin-vue-jsx')
@@ -12,10 +14,14 @@ const baseConfig = defineConfig({
   publicDir: false,
   plugins: [vue(), vueJsx()]
 })
+
 // 入口文件
 const entryFile = path.resolve(__dirname, './entry.ts')
 // 输出目录
 const outputDir = path.resolve(__dirname, '../build')
+// 组件目录
+const cpnsDir = path.resolve(__dirname, '../src')
+
 // rollup配置（设置格式）
 const rollupOptions = {
   // 外置
@@ -26,6 +32,7 @@ const rollupOptions = {
     }
   }
 }
+
 // 生成build文件夹下的package.json
 const fsExtra = require('fs-extra') // 操作文件系统
 const version = require('../package.json').version
@@ -34,8 +41,8 @@ const preSetPackageJson = name => {
   const fileStr = `{
     "name": "${name ? name : 'garril'}",
     "version": "${version}",
-    "main": "${name ? `${name}.umd.js` : 'index.umd.js'}",
-    "module": "${name ? `${name}.es.js` : 'index.umd.js'}",
+    "main": "${name ? 'index.umd.js' : `${name}.umd.js`}",
+    "module": "${name ? 'index.umd.js' : `${name}.es.js`}",
     "author": "Garril",
     "description": "Practice building a cpn store",
     "repository": {
@@ -67,7 +74,7 @@ const preSetPackageJson = name => {
 
 // 执行创建
 // 全量构建
-const buildAll = async () => {
+const buildAll = async name => {
   await build(
     defineConfig({
       ...baseConfig,
@@ -75,17 +82,53 @@ const buildAll = async () => {
         rollupOptions,
         lib: {
           entry: entryFile,
-          name: 'garril-ui',
-          fileName: 'garril-ui',
+          name: name,
+          fileName: name,
           formats: ['es', 'umd']
         },
         outDir: outputDir
       }
     })
   )
-  preSetPackageJson('garril-ui')
+  preSetPackageJson(name)
 }
+// 按需构建 (name: 组件/文件名)
+const buildSingle = async name => {
+  await build(
+    defineConfig({
+      ...baseConfig,
+      build: {
+        rollupOptions,
+        lib: {
+          entry: path.resolve(cpnsDir, name),
+          name: 'index',
+          fileName: 'index',
+          formats: ['es', 'umd']
+        },
+        outDir: path.resolve(outputDir, name)
+      }
+    })
+  )
+  // 只打一个组件，不需要传参
+  preSetPackageJson()
+}
+
 const buildLib = async () => {
-  await buildAll()
+  // 全量打包
+  await buildAll('garril-ui')
+  // 按需打包
+  fs.readdirSync(cpnsDir)
+    .filter(name => {
+      // 要目录，且目录内还有index.ts文件
+      // current path
+      const filePath = path.resolve(cpnsDir, name)
+      // is a folder?
+      const isDir = fs.lstatSync(filePath).isDirectory()
+      // folder contain the index?
+      return isDir && fs.readdirSync(filePath).includes('index.ts')
+    })
+    .forEach(async name => {
+      await buildSingle(name)
+    })
 }
 buildLib()
