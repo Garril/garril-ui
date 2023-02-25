@@ -39,10 +39,10 @@ const version = require('../package.json').version
 const preSetPackageJson = name => {
   // 预设
   const fileStr = `{
-    "name": "${name ? name : 'garril'}",
+    "name": "${name ? name : 'garril-ui'}",
     "version": "${version}",
-    "main": "${name ? 'index.umd.js' : `${name}.umd.js`}",
-    "module": "${name ? 'index.umd.js' : `${name}.es.js`}",
+    "main": "${name ? 'index.umd.js' : 'garril-ui.umd.js'}",
+    "module": "${name ? 'index.umd.js' : 'garril-ui.es.js'}",
     "author": "Garril",
     "description": "Practice building a cpn store",
     "repository": {

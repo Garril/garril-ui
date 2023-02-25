@@ -1,0 +1,7 @@
+npm config set registry=https://registry.npmjs.org
+# npm login 登陆 ，如果有 OTP, 邮箱会接收到验证码，输入即可。首次之后，可以注释了
+# 登录成功后，短时间内会保存状态，可以直接 npm pubish
+npm publish ./build # 可能会提示名称已存在，换个名字，获取使用作用域包（@xxx/xxx）
+npm config set registry=https://registry.npmmirror.com/ # 还原镜像
+# 首次运行： chomd +x publish.sh;./publish.sh
+# 之后: ./publish.sh

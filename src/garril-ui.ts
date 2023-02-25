@@ -1,6 +1,6 @@
 import type { App, Plugin } from 'vue'
 import * as components from './components'
-import version from './version'
+import { version } from '../package.json'
 
 const GarrilUI = {
   version,
