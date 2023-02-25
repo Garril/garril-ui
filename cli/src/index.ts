@@ -1,4 +1,6 @@
 import { Command } from 'commander'
+import createActionCB from '../command/create'
+
 // 创建一个命令对象
 const cmd = new Command()
 // 注册命令、参数，以及用户传入之后的回调函数
@@ -11,8 +13,6 @@ cmd
   // <type> 必填， [type] 选填
   .option('-t --type <type>', '创建类型可选值: component, lib-entry')
   // 注册回调函数
-  .action(args => {
-    // { type: 'xxx' }
-    console.log(args)
-  })
+  .action(createActionCB)
+
 cmd.parse()
