@@ -13,6 +13,7 @@
     >
     <GButton type="primary" size="medium" block>primary-block</GButton>
     <GButton type="secondary" size="medium" block>secondary-block</GButton>
+    <GTree></GTree>
   </div>
 </template>
 

@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd ./src/index.ts create",
-    "build": "tsc"
+    "@dev": "tsnd ./src/index.ts create",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "cli": "node ./build/src/index.js create"
   },
   "keywords": [],
   "author": "",
