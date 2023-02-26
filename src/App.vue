@@ -13,11 +13,12 @@
     >
     <GButton type="primary" size="medium" block>primary-block</GButton>
     <GButton type="secondary" size="medium" block>secondary-block</GButton>
-    <GTree></GTree>
+    <GTree :data="data"></GTree>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Test from './components/Test'
 
 const onclick = (val: any) => {
@@ -27,6 +28,50 @@ const onclick = (val: any) => {
 const confirm = () => {
   console.log('confirm')
 }
+const data = ref([
+  {
+    label: 'vue3',
+    id: '1',
+    level: 1,
+    children: [
+      {
+        label: 'ts',
+        id: '5',
+        parentId: '1',
+        level: 2
+      }
+    ]
+  },
+  {
+    label: 'vite',
+    id: '2',
+    expanded: true,
+    level: 1,
+    children: [
+      {
+        label: 'ui',
+        id: '3',
+        parentId: '2',
+        expanded: true,
+        level: 2,
+        children: [
+          {
+            label: 'cli',
+            id: '4',
+            parentId: '3',
+            isLeaf: true,
+            level: 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: 'tsnd',
+    id: '6',
+    level: 1
+  }
+])
 </script>
 
 <style scoped>

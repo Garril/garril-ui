@@ -95,7 +95,7 @@
           "description": "增加开发快乐值的工具",
           "title": "Tools"
         },
-        "ci": {
+        "cli": {
           "description": "对CI配置文件和脚本的更改(示例范围:Travis, Circle, BrowserStack, SauceLabs)",
           "title": "Continuous Integrations"
         },
