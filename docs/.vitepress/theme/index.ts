@@ -5,7 +5,7 @@ import 'vitepress-theme-demoblock/theme/styles/index.css'
 
 import type {App} from 'vue'
 
-import Test from '../../../src/components/Test'
+import Test from '../../../src/components/test/Test'
 import HelloWorld from '../../../src/components/HelloWorld.vue'
 
 

@@ -1,4 +1,4 @@
-import { defineComponent, toRefs } from 'vue'
+import { computed, defineComponent, toRefs } from 'vue'
 import { NODE_LEFT_INDENT, NODE_HEIGHT } from './constant'
 import { useTree } from './hooks/use-tree'
 import { TreeProps, treeProps } from './tree-type'
@@ -6,13 +6,13 @@ import { TreeProps, treeProps } from './tree-type'
 export default defineComponent({
   name: 'GTree',
   props: treeProps,
-  setup(props: TreeProps) {
+  setup(props: TreeProps, { slots }) {
     const { data, checkable } = toRefs(props)
     const {
       clickExpandedNode,
       getExpandedNodeList,
-      getChildNodes,
-      effectOtherTreeNode
+      effectOtherTreeNode,
+      getChildNodes
     } = useTree(data)
     return () => {
       return (
@@ -31,7 +31,9 @@ export default defineComponent({
                   <span
                     class="s-tree-node_line absolute w-px bg-gray-400"
                     style={{
-                      height: `${NODE_HEIGHT * getChildNodes(node).length}px`,
+                      height: `${
+                        NODE_HEIGHT * getChildNodes(node, false).length
+                      }px`,
                       top: `${NODE_HEIGHT}px`,
                       left: `${NODE_LEFT_INDENT * (level - 1) + 8}px`
                     }}
@@ -42,6 +44,8 @@ export default defineComponent({
                   <span
                     style={{ display: 'inline-block', width: '25px' }}
                   ></span>
+                ) : slots.icon ? (
+                  slots.icon({ node, clickExpandedNode })
                 ) : (
                   <svg
                     onClick={() => clickExpandedNode(node)}
@@ -71,7 +75,7 @@ export default defineComponent({
                   ></input>
                 )}
                 {/* 标签内容*/}
-                {node.label}
+                {slots.content ? slots.content(node) : node.label}
               </div>
             )
           })}
