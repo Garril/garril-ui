@@ -1,12 +1,12 @@
-import { IInnerTreeNode, ITreeNode } from './tree-type'
-export function generateInnerTree(
+import { IFlatTreeNode, ITreeNode } from './tree-type'
+export function generateFlatTree(
   tree: ITreeNode[],
   level = 0,
-  parentNode = {} as IInnerTreeNode
-): IInnerTreeNode[] {
+  parentNode = {} as IFlatTreeNode
+): IFlatTreeNode[] {
   level++
-  const resArr: IInnerTreeNode[] = tree.reduce((pre, cur) => {
-    const curNode = { ...cur } as IInnerTreeNode
+  const resArr: IFlatTreeNode[] = tree.reduce((pre, cur) => {
+    const curNode = { ...cur } as IFlatTreeNode
     curNode.expanded = false
     // 设置curNode的level
     curNode.level = level
@@ -16,7 +16,7 @@ export function generateInnerTree(
     // cur 是否存在children
     if (curNode.children) {
       // 需要删除children属性
-      const children = generateInnerTree(curNode.children, level, curNode)
+      const children = generateFlatTree(curNode.children, level, curNode)
       delete curNode.children
       // 把cur结点和所有的子结点 拼接在一起
       return pre.concat(curNode, children)
@@ -25,8 +25,8 @@ export function generateInnerTree(
       curNode.isLeaf = true
       return pre.concat(curNode)
     }
-  }, [] as IInnerTreeNode[])
-  resArr[0].expanded = true
+  }, [] as IFlatTreeNode[])
+  // resArr[0].expanded = true
   return resArr
 }
 /* const testTree = [
