@@ -7,9 +7,13 @@ export default defineComponent({
   name: 'GTree',
   props: treeProps,
   setup(props: TreeProps) {
-    const { data } = toRefs(props)
-    const { clickExpandedNode, getExpandedNodeList, getChildNodes } =
-      useTree(data)
+    const { data, checkable } = toRefs(props)
+    const {
+      clickExpandedNode,
+      getExpandedNodeList,
+      getChildNodes,
+      effectOtherTreeNode
+    } = useTree(data)
     return () => {
       return (
         <div class="s-tree">
@@ -44,6 +48,7 @@ export default defineComponent({
                     style={{
                       width: '18px',
                       height: '18px',
+                      verticalAlign: 'text-top',
                       display: 'inline-block',
                       transform: expanded ? 'rotate(90deg)' : ''
                     }}
@@ -56,6 +61,16 @@ export default defineComponent({
                     ></path>
                   </svg>
                 )}
+                {/* 复选框 */}
+                {checkable.value && (
+                  <input
+                    type="checkbox"
+                    v-model={node.checked}
+                    style={{ marginRight: '8px' }}
+                    onClick={() => effectOtherTreeNode(node)}
+                  ></input>
+                )}
+                {/* 标签内容*/}
                 {node.label}
               </div>
             )
