@@ -13,8 +13,9 @@
     >
     <GButton type="primary" size="medium" block>primary-block</GButton>
     <GButton type="secondary" size="medium" block>secondary-block</GButton>
+    <GTree :data="data" checkable:false></GTree>
     <GTree :data="data" checkable></GTree>
-    <GTree :data="data">
+    <GTree :data="data" lineable checkable>
       <template #icon="{ node, clickExpandedNode }">
         <span v-if="node.isLeaf" class="devui-tree-node__indent"></span>
         <span

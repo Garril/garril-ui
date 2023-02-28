@@ -8,6 +8,10 @@ export const treeProps = {
   checkable: {
     type: Boolean,
     default: false
+  },
+  lineable: {
+    type: Boolean,
+    default: false
   }
 } as const
 export type TreeProps = ExtractPropTypes<typeof treeProps>
