@@ -1,25 +1,29 @@
-import { defineComponent, inject, provide, toRefs } from 'vue'
+import { defineComponent, provide, toRefs } from 'vue'
 
 import { useTree } from './hooks/use-tree'
 import { IFlatTreeNode, TreeProps, treeProps } from './tree-type'
 import GTreeNode from './components/tree-node'
-import GTreeSvg from './components/tree-node-svg'
+import GTreeSvg from './components/node-slots-svg'
 export default defineComponent({
   name: 'GTree',
   props: treeProps,
   setup(props: TreeProps, { slots }) {
-    // checkable和lineable已经{...props}传入
+    // checkable、lineable、operable 已经{...props}传入
     const { data } = toRefs(props)
     const {
       clickExpandedNode,
       getExpandedNodeList,
       effectOtherTreeNode,
-      getChildNodes
+      getChildNodes,
+      appendTreeNode,
+      removeTreeNode
     } = useTree(data)
     provide('TREE_HOOKS', {
       clickExpandedNode,
       effectOtherTreeNode,
-      getChildNodes
+      getChildNodes,
+      appendTreeNode,
+      removeTreeNode
     })
     return () => {
       return (

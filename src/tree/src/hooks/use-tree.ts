@@ -1,6 +1,6 @@
 import { computed, Ref, ref, unref } from 'vue'
 import { IFlatTreeNode, ITreeNode } from '../tree-type'
-import { generateFlatTree } from '../utils'
+import { generateFlatTree, randomId } from '../utils'
 
 export function useTree(node: Ref<ITreeNode[]> | ITreeNode[]) {
   // 做一个扁平化处理
@@ -106,11 +106,55 @@ export function useTree(node: Ref<ITreeNode[]> | ITreeNode[]) {
       }
     }
   }
+  // operation：添加删除节点相关
+  // 找到节点index
+  function getTreeNodeIndex(node: IFlatTreeNode) {
+    if (!node) return -1
+    return innerData.value.findIndex(item => item.id === node.id)
+  }
+  const appendTreeNode = (parent: IFlatTreeNode, node: IFlatTreeNode) => {
+    // parent有孩子,获取最后一个子节点
+    const childNodeList = getChildNodes(parent, false)
+    const lastChild = childNodeList[childNodeList.length - 1]
+    // 找到要插入的位置index: 默认为parent后一位
+    let insertIndex = getTreeNodeIndex(parent) + 1
+    if (lastChild) {
+      insertIndex = getTreeNodeIndex(lastChild) + 1
+    } else {
+      // parent是叶子节点 (insertIndex保持默认)
+    }
+    // 处理节点
+    parent.expanded = true
+    parent.isLeaf = false
+    const newChild = ref({
+      ...node,
+      level: parent.level + 1,
+      parentId: parent.id,
+      isLeaf: true,
+      id: randomId(10)
+    })
+    // 插入节点
+    innerData.value.splice(insertIndex, 0, newChild.value)
+  }
+  const removeTreeNode = (node: IFlatTreeNode) => {
+    const childNodeIdList = getChildNodes(node, false).map(child => child.id)
+    if (childNodeIdList.length === 0) {
+      // 没有孩子
+      innerData.value = innerData.value.filter(item => item.id !== node.id)
+    } else {
+      // 有孩子
+      innerData.value = innerData.value.filter(
+        item => item.id !== node.id && !childNodeIdList.includes(item.id)
+      )
+    }
+  }
   return {
     innerData,
     clickExpandedNode,
     getChildNodes,
     getExpandedNodeList,
-    effectOtherTreeNode
+    effectOtherTreeNode,
+    appendTreeNode,
+    removeTreeNode
   }
 }

@@ -14,4 +14,6 @@ export type TreeHooksType = {
   clickExpandedNode: (node: IFlatTreeNode) => void
   getChildNodes: (node: IFlatTreeNode, recursive?: boolean) => IFlatTreeNode[]
   effectOtherTreeNode: (node: IFlatTreeNode) => void
+  appendTreeNode: (parent: IFlatTreeNode, node: IFlatTreeNode) => void
+  removeTreeNode: (node: IFlatTreeNode) => void
 }

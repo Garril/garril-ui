@@ -13,9 +13,13 @@
     >
     <GButton type="primary" size="medium" block>primary-block</GButton>
     <GButton type="secondary" size="medium" block>secondary-block</GButton>
+    <hr />
+    <div class="bg-slate-400">没有checkbox</div>
     <GTree :data="data" checkable:false></GTree>
-    <GTree :data="data" checkable></GTree>
-    <GTree :data="data" lineable checkable>
+    <div class="bg-slate-400">有checkbox和operable</div>
+    <GTree :data="data" checkable operable></GTree>
+    <div class="bg-slate-400">有checkbox和lineable</div>
+    <GTree :data="data" lineable checkable operable>
       <template #icon="{ node, clickExpandedNode }">
         <span v-if="node.isLeaf" class="devui-tree-node__indent"></span>
         <span
