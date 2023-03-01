@@ -13,14 +13,14 @@ export default defineComponent({
     const {
       clickExpandedNode,
       getExpandedNodeList,
-      effectOtherTreeNode,
+      checkTreeNode,
       getChildNodes,
       appendTreeNode,
       removeTreeNode
     } = useTree(data)
     provide('TREE_HOOKS', {
       clickExpandedNode,
-      effectOtherTreeNode,
+      checkTreeNode,
       getChildNodes,
       appendTreeNode,
       removeTreeNode

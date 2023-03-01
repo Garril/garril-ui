@@ -1,28 +1,29 @@
 import { defineComponent, inject, toRefs, unref, ref } from 'vue'
 import { NODE_LEFT_INDENT, NODE_HEIGHT } from '../constant'
 import { IFlatTreeNode } from '../tree-type'
-import { TreeHooksType, TreeNodeProps, treeNodeProps } from './tree-node-type'
+import {
+  TreeInjectType,
+  TreeNodeProps,
+  treeNodeProps
+} from './type/tree-node-type'
 
 export default defineComponent({
   name: 'GTreeNode',
   props: treeNodeProps,
   setup(props: TreeNodeProps, { slots }) {
     const { lineable, checkable, node, operable } = toRefs(props)
-    /*const { clickExpandedNode, effectOtherTreeNode, getChildNodes } =
-      inject<TreeHooksType>('TREE_HOOKS') as any 
+
+    /*const { clickExpandedNode, checkTreeNode, getChildNodes } =
+      inject<TreeInjectType>('TREE_HOOKS') as any 
       or
-      const { clickExpandedNode, effectOtherTreeNode, getChildNodes } =
-      inject<TreeHooksType>('TREE_HOOKS', {}, {}, {})
+      const { clickExpandedNode, checkTreeNode, getChildNodes } =
+      inject<TreeInjectType>('TREE_HOOKS', {}, {}, {})
       or
-      const { clickExpandedNode, effectOtherTreeNode, getChildNodes } =
-      inject('TREE_HOOKS') as TreeHooksType
+      const { clickExpandedNode, checkTreeNode, getChildNodes } =
+      inject('TREE_HOOKS') as TreeInjectType
     */
-    const {
-      effectOtherTreeNode,
-      getChildNodes,
-      appendTreeNode,
-      removeTreeNode
-    } = inject('TREE_HOOKS') as TreeHooksType
+    const { checkTreeNode, getChildNodes, appendTreeNode, removeTreeNode } =
+      inject('TREE_HOOKS') as TreeInjectType
     const isShow = ref(false)
     const mouseOperation = () => {
       if (isShow.value) {
@@ -69,7 +70,7 @@ export default defineComponent({
               type="checkbox"
               v-model={checked}
               style={{ marginRight: '8px' }}
-              onClick={() => effectOtherTreeNode(node.value)}
+              onClick={() => checkTreeNode(node.value)}
             ></input>
           )}
           {/* 标签内容*/}

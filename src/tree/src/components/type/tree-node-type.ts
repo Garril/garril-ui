@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { IFlatTreeNode, treeProps } from '../tree-type'
+import { IFlatTreeNode, treeProps } from '../../tree-type'
 
 export const treeNodeProps = {
   ...treeProps,
@@ -10,10 +10,10 @@ export const treeNodeProps = {
 } as const
 export type TreeNodeProps = ExtractPropTypes<typeof treeNodeProps>
 
-export type TreeHooksType = {
+export type TreeInjectType = {
   clickExpandedNode: (node: IFlatTreeNode) => void
   getChildNodes: (node: IFlatTreeNode, recursive?: boolean) => IFlatTreeNode[]
-  effectOtherTreeNode: (node: IFlatTreeNode) => void
+  checkTreeNode: (node: IFlatTreeNode) => void
   appendTreeNode: (parent: IFlatTreeNode, node: IFlatTreeNode) => void
   removeTreeNode: (node: IFlatTreeNode) => void
 }
