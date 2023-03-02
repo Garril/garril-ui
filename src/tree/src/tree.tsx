@@ -18,14 +18,24 @@ export default defineComponent({
       checkTreeNode,
       getChildNodes,
       appendTreeNode,
-      removeTreeNode
+      removeTreeNode,
+      onDragStart,
+      onDragOver,
+      onDragLeave,
+      onDragEnd,
+      onDrop
     } = useTree(data, props, context as SetupContext)
     provide('TREE_HOOKS', {
       clickExpandedNode,
       checkTreeNode,
       getChildNodes,
       appendTreeNode,
-      removeTreeNode
+      removeTreeNode,
+      onDragStart,
+      onDragOver,
+      onDragLeave,
+      onDragEnd,
+      onDrop
     })
     return () => {
       return (

@@ -6,6 +6,7 @@ export type UseTreeCoreType = {
   getTreeNodeIndex: (node: IFlatTreeNode) => number
   getExpandedNodeList: ComputedRef<IFlatTreeNode[]>
   getNode: (node: IFlatTreeNode) => IFlatTreeNode | undefined
+  getParentNode: (node: IFlatTreeNode) => IFlatTreeNode | undefined
 }
 
 export type UseExpandType = {
@@ -28,6 +29,28 @@ export type LazyNodeResType = {
   parentNode: IFlatTreeNode
   childNodes: ITreeNode[]
 }
+// 拖拽
+export type DragDropType = boolean | DropType
+export interface DropType {
+  prev?: boolean
+  next?: boolean
+  inner?: boolean
+}
+export type UseDraggable = {
+  onDragStart: (event: DragEvent, node: IFlatTreeNode) => void
+  // 在node上面移动时: 决定操作类型（确定放在目标drop节点的prev/next/inner）
+  onDragOver: (event: DragEvent) => void
+  onDragLeave: (event: DragEvent) => void
+  onDragEnd: (event: DragEvent) => void
+  onDrop: (event: DragEvent, targetNode: IFlatTreeNode) => void
+}
+export type DragState = {
+  dropType?: keyof Required<DropType>
+  // 元素节点
+  draggingHtmlNode?: HTMLElement | null
+  // 数据节点
+  draggingTreeNode?: IFlatTreeNode | null
+}
 
 export type TreeHooksType = {
   flatTreeData: Ref<IFlatTreeNode[]>
@@ -36,4 +59,5 @@ export type TreeHooksType = {
   UseExpandType &
   UseCheckType &
   UseOperationType &
-  UseLazyLoadType
+  UseLazyLoadType &
+  UseDraggable

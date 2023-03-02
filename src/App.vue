@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Test class="test" @click="onclick">
+    <!-- <Test class="test" @click="onclick">
       <template #default> default slot</template>
       <template #title>
         <h3>default title h3</h3>
@@ -12,16 +12,29 @@
       >确定</GButton
     >
     <GButton type="primary" size="medium" block>primary-block</GButton>
-    <GButton type="secondary" size="medium" block>secondary-block</GButton>
+    <GButton type="secondary" size="medium" block>secondary-block</GButton> -->
     <hr />
     <div class="bg-slate-400">没有checkbox和lineable和lazy,只有operable</div>
     <GTree :data="data" checkable:false></GTree>
 
-    <div class="bg-slate-400">有checkbox和operable和lazy</div>
-    <GTree :data="data" checkable operable lazy @lazy-load="lazyLoadCB"></GTree>
+    <div class="bg-slate-400">有checkbox和operable和lazy和dragdrop</div>
+    <GTree
+      :data="data"
+      checkable
+      operable
+      :dragdrop="{ prev: true, next: true, inner: true }"
+      lazy
+      @lazy-load="lazyLoadCB"
+    ></GTree>
 
     <div class="bg-slate-400">有checkbox和lineable无lazy</div>
-    <GTree :data="data" lineable checkable operable>
+    <GTree
+      :data="data"
+      lineable
+      checkable
+      operable
+      :dragdrop="{ prev: true, next: true, inner: true }"
+    >
       <template #icon="{ node, clickExpandedNode }">
         <span v-if="node.isLeaf" class="devui-tree-node__indent"></span>
         <span

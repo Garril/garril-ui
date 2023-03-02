@@ -1,24 +1,35 @@
 import { ExtractPropTypes, PropType } from 'vue'
+import { DragDropType } from './hooks/type/use-tree-type'
 
 export const treeProps = {
   data: {
     type: Object as PropType<Array<ITreeNode>>,
     required: true
   },
+  // 多选框
   checkable: {
     type: Boolean,
     default: false
   },
+  // 左侧线
   lineable: {
     type: Boolean,
     default: false
   },
+  // 添加删除节点
   operable: {
     type: Boolean,
     default: false
   },
+  // 懒加载
   lazy: {
     type: Boolean,
+    default: false
+  },
+  // 拖拽
+  dragdrop: {
+    // 可能丢到节点里面，上面，下面
+    type: [Boolean, Object] as PropType<DragDropType>,
     default: false
   }
 } as const

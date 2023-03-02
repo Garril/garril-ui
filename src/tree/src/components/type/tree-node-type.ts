@@ -16,4 +16,9 @@ export type TreeInjectType = {
   checkTreeNode: (node: IFlatTreeNode) => void
   appendTreeNode: (parent: IFlatTreeNode, node: IFlatTreeNode) => void
   removeTreeNode: (node: IFlatTreeNode) => void
+  onDragStart: (event: DragEvent, node: IFlatTreeNode) => void
+  onDragOver: (event: DragEvent) => void
+  onDragLeave: (event: DragEvent) => void
+  onDragEnd: (event: DragEvent) => void
+  onDrop: (event: DragEvent, targetNode: IFlatTreeNode) => void
 }

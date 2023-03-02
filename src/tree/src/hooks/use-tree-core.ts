@@ -54,10 +54,15 @@ export function useTreeCore(
     if (!node) return undefined
     return flatTreeData.value.find(item => item.id === node.id)
   }
+  const getParentNode = (node: IFlatTreeNode) => {
+    if (!node) return undefined
+    return flatTreeData.value.find(item => item.id === node.parentId)
+  }
   return {
     getChildNodes,
     getTreeNodeIndex,
     getExpandedNodeList,
-    getNode
+    getNode,
+    getParentNode
   }
 }
