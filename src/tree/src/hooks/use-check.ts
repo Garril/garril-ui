@@ -3,7 +3,7 @@ import { IFlatTreeNode } from '../tree-type'
 import { UseCheckType, UseTreeCoreType } from './type/use-tree-type'
 
 export function useCheck(
-  innerData: Ref<IFlatTreeNode[]>,
+  flatTreeData: Ref<IFlatTreeNode[]>,
   { getChildNodes }: UseTreeCoreType
 ): UseCheckType {
   // 选中复选框后的，父到子的联动，子到父的联动
@@ -11,12 +11,12 @@ export function useCheck(
     // 初始化node的checked属性,可能为undefined,初次bug
     node.checked = !node.checked
     // 父到子
-    getChildNodes(node).forEach(child => {
+    getChildNodes(node, true).forEach(child => {
       child.checked = node.checked
     })
     // 子到父
     // 获取父节点
-    const parentNode: IFlatTreeNode = innerData.value.find(
+    const parentNode: IFlatTreeNode = flatTreeData.value.find(
       item => item.id === node.parentId
     ) as IFlatTreeNode
     if (!parentNode) {
@@ -39,7 +39,7 @@ export function useCheck(
   }
   function upwardDealSilbingNodes(node: IFlatTreeNode, val: boolean) {
     if (node.parentId) {
-      const grandparentNode: IFlatTreeNode = innerData.value.find(
+      const grandparentNode: IFlatTreeNode = flatTreeData.value.find(
         item => item.id === node.parentId
       ) as IFlatTreeNode
       if (!val) {

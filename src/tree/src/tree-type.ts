@@ -16,6 +16,10 @@ export const treeProps = {
   operable: {
     type: Boolean,
     default: false
+  },
+  lazy: {
+    type: Boolean,
+    default: false
   }
 } as const
 export type TreeProps = ExtractPropTypes<typeof treeProps>
@@ -28,6 +32,8 @@ export interface ITreeNode {
   selected?: boolean // 选中
   checked?: boolean // 勾选
   expanded?: boolean // 展开
+  loading?: boolean // 节点是否显示加载中
+  childNodeCount?: number // 该节点的数量
 
   disableSelect?: boolean
   disableCheck?: boolean

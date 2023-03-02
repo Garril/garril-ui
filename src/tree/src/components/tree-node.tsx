@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'GTreeNode',
   props: treeNodeProps,
   setup(props: TreeNodeProps, { slots }) {
-    const { lineable, checkable, node, operable } = toRefs(props)
+    const { lineable, checkable, node, operable, lazy } = toRefs(props)
 
     /*const { clickExpandedNode, checkTreeNode, getChildNodes } =
       inject<TreeInjectType>('TREE_HOOKS') as any 
@@ -105,6 +105,8 @@ export default defineComponent({
               </svg>
             </span>
           )}
+          {/* loading状态显示 */}
+          {lazy.value && node.value.loading && slots.loading?.()}
         </div>
       )
     }

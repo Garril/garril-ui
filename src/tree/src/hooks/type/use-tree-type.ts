@@ -1,10 +1,11 @@
-import { ComputedRef, Ref } from 'vue'
-import { IFlatTreeNode } from '../../tree-type'
+import { ComputedRef, Ref, SetupContext } from 'vue'
+import { IFlatTreeNode, ITreeNode } from '../../tree-type'
 
 export type UseTreeCoreType = {
   getChildNodes: (node: IFlatTreeNode, recursive?: boolean) => IFlatTreeNode[]
   getTreeNodeIndex: (node: IFlatTreeNode) => number
   getExpandedNodeList: ComputedRef<IFlatTreeNode[]>
+  getNode: (node: IFlatTreeNode) => IFlatTreeNode | undefined
 }
 
 export type UseExpandType = {
@@ -20,9 +21,19 @@ export type UseOperationType = {
   removeTreeNode: (node: IFlatTreeNode) => void
 }
 
+export type UseLazyLoadType = {
+  lazyLoadNode: (node: IFlatTreeNode) => void
+}
+export type LazyNodeResType = {
+  parentNode: IFlatTreeNode
+  childNodes: ITreeNode[]
+}
+
 export type TreeHooksType = {
-  innerData: Ref<IFlatTreeNode[]>
+  flatTreeData: Ref<IFlatTreeNode[]>
+  context: SetupContext
 } & UseTreeCoreType &
   UseExpandType &
   UseCheckType &
-  UseOperationType
+  UseOperationType &
+  UseLazyLoadType

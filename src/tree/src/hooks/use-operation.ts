@@ -1,11 +1,10 @@
 import { ref, Ref } from 'vue'
 import { IFlatTreeNode } from '../tree-type'
 import { UseOperationType, UseTreeCoreType } from './type/use-tree-type'
-import { useTreeCore } from './use-tree-core'
 import { randomId } from '../utils'
 
 export function useOperation(
-  innerData: Ref<IFlatTreeNode[]>,
+  flatTreeData: Ref<IFlatTreeNode[]>,
   { getChildNodes, getTreeNodeIndex }: UseTreeCoreType
 ): UseOperationType {
   // 添加孩子节点到父元素children[]末尾
@@ -31,7 +30,7 @@ export function useOperation(
       id: randomId(10)
     })
     // 插入节点
-    innerData.value.splice(insertIndex, 0, newChild.value)
+    flatTreeData.value.splice(insertIndex, 0, newChild.value)
   }
 
   // 删除节点以及它的所有孩子节点
@@ -39,10 +38,12 @@ export function useOperation(
     const childNodeIdList = getChildNodes(node, true).map(child => child.id)
     if (childNodeIdList.length === 0) {
       // 没有孩子
-      innerData.value = innerData.value.filter(item => item.id !== node.id)
+      flatTreeData.value = flatTreeData.value.filter(
+        item => item.id !== node.id
+      )
     } else {
       // 有孩子
-      innerData.value = innerData.value.filter(
+      flatTreeData.value = flatTreeData.value.filter(
         item => item.id !== node.id && !childNodeIdList.includes(item.id)
       )
     }

@@ -14,11 +14,13 @@
     <GButton type="primary" size="medium" block>primary-block</GButton>
     <GButton type="secondary" size="medium" block>secondary-block</GButton>
     <hr />
-    <div class="bg-slate-400">没有checkbox</div>
+    <div class="bg-slate-400">没有checkbox和lineable和lazy,只有operable</div>
     <GTree :data="data" checkable:false></GTree>
-    <div class="bg-slate-400">有checkbox和operable</div>
-    <GTree :data="data" checkable operable></GTree>
-    <div class="bg-slate-400">有checkbox和lineable</div>
+
+    <div class="bg-slate-400">有checkbox和operable和lazy</div>
+    <GTree :data="data" checkable operable lazy @lazy-load="lazyLoadCB"></GTree>
+
+    <div class="bg-slate-400">有checkbox和lineable无lazy</div>
     <GTree :data="data" lineable checkable operable>
       <template #icon="{ node, clickExpandedNode }">
         <span v-if="node.isLeaf" class="devui-tree-node__indent"></span>
@@ -100,6 +102,10 @@
 import { ref } from 'vue'
 import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
+import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
+import { IFlatTreeNode } from './tree/src/tree-type'
+
+const data = ref(TREE_TEST_DATA)
 
 const onclick = (val: any) => {
   console.log('app click output')
@@ -108,7 +114,41 @@ const onclick = (val: any) => {
 const confirm = () => {
   console.log('confirm')
 }
-const data = ref(TREE_TEST_DATA)
+const lazyLoadCB = (
+  node: IFlatTreeNode,
+  callback: (result: LazyNodeResType) => void
+) => {
+  // 用定时器模拟了异步请求
+  setTimeout(() => {
+    // data就是异步请求拿到的数据
+    const data = [
+      {
+        label: 'lazy node 1',
+        expanded: true,
+        id: '100',
+        children: [
+          {
+            id: '101',
+            label: 'lazy node 1-1'
+          },
+          {
+            id: '102',
+            label: 'lazy node 1-2'
+          }
+        ]
+      },
+      {
+        id: '200',
+        label: 'lazy node 2'
+      }
+    ]
+    if (node.id === '2' || node.id === '3') {
+      callback({ parentNode: node, childNodes: data })
+    } else {
+      callback({ parentNode: node, childNodes: [] })
+    }
+  }, 1000)
+}
 </script>
 
 <style scoped>

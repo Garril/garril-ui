@@ -7,6 +7,7 @@ export const TREE_TEST_DATA = [
     label: 'vue3',
     id: '1',
     level: 1,
+    expanded: false,
     children: [
       {
         label: 'ts',
@@ -34,7 +35,7 @@ export const TREE_TEST_DATA = [
         label: 'ui',
         id: '3',
         parentId: '2',
-        expanded: true,
+        expanded: false,
         level: 2,
         children: [
           {

@@ -1,4 +1,4 @@
-import { defineComponent, provide, toRefs } from 'vue'
+import { defineComponent, provide, SetupContext, toRefs } from 'vue'
 
 import { useTree } from './hooks/use-tree'
 import { IFlatTreeNode, TreeProps, treeProps } from './tree-type'
@@ -7,9 +7,11 @@ import GTreeSvg from './components/node-slots-svg'
 export default defineComponent({
   name: 'GTree',
   props: treeProps,
-  setup(props: TreeProps, { slots }) {
+  emits: ['lazy-load'],
+  setup(props: TreeProps, context) {
     // checkable、lineable、operable 已经{...props}传入
     const { data } = toRefs(props)
+    const { slots } = context
     const {
       clickExpandedNode,
       getExpandedNodeList,
@@ -17,7 +19,7 @@ export default defineComponent({
       getChildNodes,
       appendTreeNode,
       removeTreeNode
-    } = useTree(data)
+    } = useTree(data, props, context as SetupContext)
     provide('TREE_HOOKS', {
       clickExpandedNode,
       checkTreeNode,
@@ -42,6 +44,12 @@ export default defineComponent({
                         expanded={!!node.expanded}
                         onClick={() => clickExpandedNode(node)}
                       ></GTreeSvg>
+                    ),
+                  loading: () =>
+                    slots.loading ? (
+                      slots.loading({ node })
+                    ) : (
+                      <span class="ml-1">loading...</span>
                     )
                 }}
               </GTreeNode>

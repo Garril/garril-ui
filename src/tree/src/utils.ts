@@ -7,22 +7,31 @@ export function generateFlatTree(
   level++
   const resArr: IFlatTreeNode[] = tree.reduce((pre, cur) => {
     const curNode = { ...cur } as IFlatTreeNode
-    curNode.expanded = false
+    // 初始化状态
+    curNode.selected = curNode.selected ?? false
+    curNode.checked = curNode.checked ?? false
+    curNode.expanded = curNode.expanded ?? false
     // 设置curNode的level
     curNode.level = level
+    // 设置parentId
     if (level > 1 && parentNode) {
       curNode.parentId = parentNode.id
     }
-    // cur 是否存在children
+    // cur 是否存在children, 设置
     if (curNode.children) {
-      // 需要删除children属性
+      curNode.isLeaf = false
+      // 需要删除父节点children数组属性
       const children = generateFlatTree(curNode.children, level, curNode)
       delete curNode.children
       // 把cur结点和所有的子结点 拼接在一起
       return pre.concat(curNode, children)
     } else {
       // 叶子结点
-      curNode.isLeaf = true
+      // curNode.isLeaf = true
+      // 可能懒加载要把isLeaf提前的，故意的设置为true，但是不代表curNode就一定是叶子节点
+      if (curNode.isLeaf === undefined) {
+        curNode.isLeaf = true
+      }
       return pre.concat(curNode)
     }
   }, [] as IFlatTreeNode[])
