@@ -1,2 +1,21 @@
 .s-tree {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  .s-tree-node {
+    &--content {
+      border: 1px solid transparent;
+    }
+    &--prev {
+      border: 1px solid red;
+      opacity: 0.4;
+    }
+    &--inner {
+      border: 1px solid green;
+      opacity: 0.4;
+    }
+    &--next {
+      border: 1px solid blue;
+      opacity: 0.4;
+    }
+  }
 }

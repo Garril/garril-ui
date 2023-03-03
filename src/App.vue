@@ -28,10 +28,10 @@
     ></GTree>
 
     <div class="bg-slate-400">有checkbox和lineable无lazy</div>
+    <!-- 在拖拽移动node的时候，check的改变没有做相应变化，所以一般不让check和dragdrop一块开启 -->
     <GTree
       :data="data"
       lineable
-      checkable
       operable
       :dragdrop="{ prev: true, next: true, inner: true }"
     >

@@ -4,6 +4,8 @@ import { useTree } from './hooks/use-tree'
 import { IFlatTreeNode, TreeProps, treeProps } from './tree-type'
 import GTreeNode from './components/tree-node'
 import GTreeSvg from './components/node-slots-svg'
+import '../style/tree.scss'
+
 export default defineComponent({
   name: 'GTree',
   props: treeProps,

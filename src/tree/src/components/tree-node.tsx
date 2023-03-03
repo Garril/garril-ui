@@ -54,7 +54,6 @@ export default defineComponent({
         onDrop: (event: DragEvent) => onDrop(event, node.value)
       }
     }
-    console.log(dragDropProps)
     return () => {
       // eslint-disable-next-line prefer-const
       let { level, expanded, isLeaf, checked } = unref(node)
@@ -70,7 +69,7 @@ export default defineComponent({
           {/* 连接线 */}
           {!isLeaf && expanded && lineable.value && (
             <span
-              class="s-tree-node_line absolute w-px bg-gray-400"
+              class="s-tree-node--line absolute w-px bg-gray-400"
               style={{
                 height: `${
                   NODE_HEIGHT * getChildNodes(node.value, false).length

@@ -10,9 +10,9 @@ import {
 } from './type/use-tree-type'
 
 const DropTypeMap = {
-  prev: 's-tree__node--drop-prev',
-  next: 's-tree__node--drop-next',
-  inner: 's-tree__node--drop-inner'
+  prev: 's-tree-node--prev',
+  next: 's-tree-node--next',
+  inner: 's-tree-node--inner'
 }
 
 export function useDragDrop(
