@@ -31,6 +31,14 @@ export const treeProps = {
     // 可能丢到节点里面，上面，下面
     type: [Boolean, Object] as PropType<DragDropType>,
     default: false
+  },
+  // 设置了高度，代表要开启虚拟滚动
+  height: {
+    type: Number
+  },
+  itemHeight: {
+    type: Number,
+    default: 24
   }
 } as const
 export type TreeProps = ExtractPropTypes<typeof treeProps>

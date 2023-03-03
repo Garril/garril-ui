@@ -5,6 +5,7 @@ import { IFlatTreeNode, TreeProps, treeProps } from './tree-type'
 import GTreeNode from './components/tree-node'
 import GTreeSvg from './components/node-slots-svg'
 import '../style/tree.scss'
+import { VirtualList } from '../../virtual-list/index'
 
 export default defineComponent({
   name: 'GTree',
@@ -12,7 +13,7 @@ export default defineComponent({
   emits: ['lazy-load'],
   setup(props: TreeProps, context) {
     // checkable、lineable、operable 已经{...props}传入
-    const { data } = toRefs(props)
+    const { data, height, itemHeight } = toRefs(props)
     const { slots } = context
     const {
       clickExpandedNode,
@@ -40,33 +41,48 @@ export default defineComponent({
       onDrop
     })
     return () => {
+      const TreeNode = (node: IFlatTreeNode) => (
+        <GTreeNode {...props} node={node}>
+          {{
+            content: () => (slots.content ? slots.content(node) : node.label),
+            icon: () =>
+              slots.icon ? (
+                slots.icon({ node, clickExpandedNode })
+              ) : (
+                <GTreeSvg
+                  expanded={!!node.expanded}
+                  onClick={() => clickExpandedNode(node)}
+                ></GTreeSvg>
+              ),
+            loading: () =>
+              slots.loading ? (
+                slots.loading({ node })
+              ) : (
+                <span class="ml-1">loading...</span>
+              )
+          }}
+        </GTreeNode>
+      )
       return (
         <div class="s-tree">
-          {getExpandedNodeList?.value.map((node: IFlatTreeNode) => {
-            return (
-              <GTreeNode {...props} node={node}>
+          {height?.value ? (
+            // 虚拟列表
+            <div style={{ height: `${height.value}px` }}>
+              <VirtualList
+                data={getExpandedNodeList?.value}
+                itemHeight={itemHeight.value}
+              >
                 {{
-                  content: () =>
-                    slots.content ? slots.content(node) : node.label,
-                  icon: () =>
-                    slots.icon ? (
-                      slots.icon({ node, clickExpandedNode })
-                    ) : (
-                      <GTreeSvg
-                        expanded={!!node.expanded}
-                        onClick={() => clickExpandedNode(node)}
-                      ></GTreeSvg>
-                    ),
-                  loading: () =>
-                    slots.loading ? (
-                      slots.loading({ node })
-                    ) : (
-                      <span class="ml-1">loading...</span>
-                    )
+                  default: ({ item: node }: { item: IFlatTreeNode }) =>
+                    TreeNode(node)
                 }}
-              </GTreeNode>
-            )
-          })}
+              </VirtualList>
+            </div>
+          ) : (
+            getExpandedNodeList?.value.map((node: IFlatTreeNode) => {
+              return TreeNode(node)
+            })
+          )}
         </div>
       )
     }

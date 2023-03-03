@@ -12,7 +12,7 @@
       >确定</GButton
     >
     <GButton type="primary" size="medium" block>primary-block</GButton>
-    <GButton type="secondary" size="medium" block>secondary-block</GButton> -->
+    <GButton type="secondary" size="medium" block>secondary-block</GButton>
     <hr />
     <div class="bg-slate-400">没有checkbox和lineable和lazy,只有operable</div>
     <GTree :data="data" checkable:false></GTree>
@@ -26,10 +26,10 @@
       lazy
       @lazy-load="lazyLoadCB"
     ></GTree>
-
     <div class="bg-slate-400">有checkbox和lineable无lazy</div>
+    -->
     <!-- 在拖拽移动node的时候，check的改变没有做相应变化，所以一般不让check和dragdrop一块开启 -->
-    <GTree
+    <!-- <GTree
       :data="data"
       lineable
       operable
@@ -107,7 +107,10 @@
           ></path>
         </svg>
       </template>
-    </GTree>
+    </GTree> -->
+    <div class="bg-slate-400">虚拟列表</div>
+    >
+    <GTree :data="mockData" :height="300"></GTree>
   </div>
 </template>
 
@@ -162,6 +165,12 @@ const lazyLoadCB = (
     }
   }, 1000)
 }
+const mockData = ref([
+  ...Array.from({ length: 50 }).map((item, index) => ({
+    id: 'node-' + index,
+    label: 'node_label-' + index
+  }))
+])
 </script>
 
 <style scoped>
