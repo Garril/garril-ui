@@ -46,6 +46,7 @@ export default defineComponent({
     return () => {
       return (
         <Component.value
+          id="s-virtual-list-id"
           class="s-virtual-list--container"
           onScroll={scrollEvent}
           ref={containerRef}

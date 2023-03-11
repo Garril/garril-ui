@@ -109,8 +109,8 @@
       </template>
     </GTree> -->
     <div class="bg-slate-400">虚拟列表</div>
-    >
     <GTree :data="mockData" :height="300"></GTree>
+    <GPagination :total="50"></GPagination>
   </div>
 </template>
 

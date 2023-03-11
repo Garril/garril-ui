@@ -5,7 +5,7 @@ export function generateFlatTree(
   parentNode = {} as IFlatTreeNode
 ): IFlatTreeNode[] {
   level++
-  const resArr: IFlatTreeNode[] = tree.reduce((pre, cur) => {
+  const resArr: IFlatTreeNode[] = tree?.reduce((pre, cur) => {
     const curNode = { ...cur } as IFlatTreeNode
     // 初始化状态
     curNode.selected = curNode.selected ?? false
