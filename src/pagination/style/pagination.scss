@@ -1,18 +1,18 @@
 .s-pagination {
   display: flex;
-  .s-pager {
-    list-style: none;
-    display: flex;
-    padding-left: 0;
-    li {
-      margin-top: 0;
-      padding: 0 4px;
-    }
-    li.current {
-      color: red;
-    }
-    li:hover {
-      color: skyblue;
-    }
+}
+.s-pager {
+  list-style: none;
+  display: flex;
+  padding-left: 0;
+  li {
+    margin-top: 0;
+    padding: 0 4px;
+  }
+  li.current {
+    color: red;
+  }
+  li:hover {
+    color: skyblue;
   }
 }

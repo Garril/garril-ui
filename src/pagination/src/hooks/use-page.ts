@@ -3,25 +3,28 @@ import { ref } from 'vue'
 export default function usePage(defaultPageIndex = 1) {
   // page number
   const pageIndex = ref(defaultPageIndex)
-  // set page number
+  // set page number -- click numbers to jump
   const setPageIndex = (cur: number) => {
     pageIndex.value = cur
   }
-  // jump how many pages to
-  const jumpToPageIndex = (step: number) => {
-    pageIndex.value += step
+  // jump how many pages to ( double arrow -- quick to or back )
+  const jumpToPageIndex = (step: number, calcTotalPage?: number) => {
+    let res = pageIndex.value + step
+    if (calcTotalPage && res > calcTotalPage) {
+      res = calcTotalPage
+    } else if (res < 1) {
+      res = 1
+    }
+    pageIndex.value = res
   }
   // previous page
-  const prePage = () => {
-    if (pageIndex.value - 1 > 0) jumpToPageIndex(-1)
+  const prePage = (calcTotalPage: number) => {
+    jumpToPageIndex(-1, calcTotalPage)
   }
   // next page
   const nextPage = (calcTotalPage: number) => {
-    if (pageIndex.value + 1 <= calcTotalPage) jumpToPageIndex(1)
+    jumpToPageIndex(1, calcTotalPage)
   }
-  // click numbers to jump
-  // double arrow -- quick to
-  // double arrow -- quick back
   return {
     pageIndex,
     setPageIndex,
