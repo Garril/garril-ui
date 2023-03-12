@@ -110,13 +110,13 @@
     </GTree> -->
     <div class="bg-slate-400">虚拟列表</div>
     <GTree :data="mockData" :height="300"></GTree>
-    <GPagination :total="50"></GPagination>
-    <GPager :total="50"></GPager>
+    <GPagination v-model:curPageIndex="curIndex" :total="50"></GPagination>
+    <GPager :total="50" @update-pager-index="changeIndex"></GPager>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
@@ -172,6 +172,16 @@ const mockData = ref([
     label: 'node_label-' + index
   }))
 ])
+const changeIndex = (val: any) => {
+  console.log(val)
+}
+const curIndex = ref(0)
+watch(
+  () => curIndex.value,
+  newVal => {
+    console.log('curIndexnew', newVal)
+  }
+)
 </script>
 
 <style scoped>

@@ -15,6 +15,10 @@ export const paginationProps = {
     // 底部显示的页数按钮 数量
     type: Number,
     default: 5
+  },
+  curPageIndex: {
+    type: Number,
+    default: 1
   }
 } as const
 export type PaginationProps = ExtractPropTypes<typeof paginationProps>

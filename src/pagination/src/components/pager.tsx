@@ -1,4 +1,4 @@
-import { computed, defineComponent, toRefs } from 'vue'
+import { computed, defineComponent, toRefs, watch } from 'vue'
 import usePage from '../hooks/use-page'
 import { getCenterPage } from '../utils'
 import { pagerProps, PagerProps } from './pager-type'
@@ -6,7 +6,8 @@ import { pagerProps, PagerProps } from './pager-type'
 export default defineComponent({
   name: 'GPager',
   props: pagerProps,
-  setup(props: PagerProps) {
+  emits: ['updatePagerIndex'],
+  setup(props: PagerProps, { emit }) {
     const { total, pageSize, pageCount } = toRefs(props)
     const calcTotalPage = computed(() => {
       return Math.ceil(total.value / pageSize.value)
@@ -20,6 +21,12 @@ export default defineComponent({
     })
     const { pageIndex, setPageIndex, jumpToPageIndex, nextPage, prePage } =
       usePage()
+    watch(
+      () => pageIndex.value,
+      newVal => {
+        emit('updatePagerIndex', newVal)
+      }
+    )
     return {
       pageCount,
       calcTotalPage,
