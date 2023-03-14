@@ -152,10 +152,10 @@
       :label-size="labelSize"
     >
       <GFormItem label="用户名：">
-        <input />
+        <GInput v-model="model.user" />
       </GFormItem>
       <GFormItem label="密码：">
-        <input type="password" />
+        <GInput v-model="model.password" type="password" />
       </GFormItem>
     </GForm>
   </div>

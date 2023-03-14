@@ -19,6 +19,7 @@
     "npm-v": "npm view garril-ui"
   },
   "dependencies": {
+    "async-validator": "^4.2.5",
     "vue": "^3.2.45"
   },
   "devDependencies": {
