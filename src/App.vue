@@ -112,7 +112,52 @@
     <GTree :data="mockData" :height="300"></GTree>
     <GPagination v-model:curPageIndex="curIndex" :total="50"></GPagination>
     <GPager :total="50" @update-pager-index="changeIndex"></GPager>
-    <GForm :model="233"></GForm>
+    <!-- <GForm :model="{ name: 'userform' }" layout="horizontal">
+      <GFormItem label="username: "> <input type="text" /></GFormItem>
+    </GForm> -->
+    <p>
+      <span>labelSize:</span>
+      <label>
+        <input v-model="labelSize" type="radio" value="sm" />
+        sm
+      </label>
+      <label>
+        <input v-model="labelSize" type="radio" value="md" />
+        md
+      </label>
+      <label>
+        <input v-model="labelSize" type="radio" value="lg" />
+        lg
+      </label>
+    </p>
+    <p>
+      <span>labelAlign:</span>
+      <label>
+        <input v-model="labelAlign" type="radio" value="start" />
+        start
+      </label>
+      <label>
+        <input v-model="labelAlign" type="radio" value="center" />
+        center
+      </label>
+      <label>
+        <input v-model="labelAlign" type="radio" value="end" />
+        end
+      </label>
+    </p>
+    <GForm
+      :model="model"
+      layout="horizontal"
+      :label-align="labelAlign"
+      :label-size="labelSize"
+    >
+      <GFormItem label="用户名：">
+        <input />
+      </GFormItem>
+      <GFormItem label="密码：">
+        <input type="password" />
+      </GFormItem>
+    </GForm>
   </div>
 </template>
 
@@ -122,6 +167,13 @@ import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
+
+const model = ref({
+  user: 'garril',
+  password: '123456'
+})
+const labelSize = ref('md')
+const labelAlign = ref('start')
 
 const data = ref(TREE_TEST_DATA)
 

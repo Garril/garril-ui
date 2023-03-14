@@ -1,12 +1,13 @@
 import { App } from 'vue'
 import Form from './src/form'
-
+import FormItem from './src/components/form-item'
 // 具名导出
-export { Form }
+export { Form, FormItem }
 
 // 导出插件
 export default {
   install(app: App) {
     app.component(Form.name, Form)
+    app.component(FormItem.name, FormItem)
   }
 }
