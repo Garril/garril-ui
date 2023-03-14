@@ -112,6 +112,7 @@
     <GTree :data="mockData" :height="300"></GTree>
     <GPagination v-model:curPageIndex="curIndex" :total="50"></GPagination>
     <GPager :total="50" @update-pager-index="changeIndex"></GPager>
+    <GForm :model="233"></GForm>
   </div>
 </template>
 
