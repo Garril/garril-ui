@@ -1,5 +1,5 @@
 import { Rules } from 'async-validator'
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes, InjectionKey, PropType } from 'vue'
 export type LayoutType = 'vertical' | 'horizontal'
 export type LabelSizeType = 'sm' | 'md' | 'lg'
 export type LabelAlignType = 'start' | 'center' | 'end'
@@ -26,3 +26,11 @@ export const formProps = {
   }
 } as const
 export type FormProps = ExtractPropTypes<typeof formProps>
+
+export type FormContext = {
+  model: any
+  rules?: Rules
+}
+// 在他provide的时候进行强类型传递
+export const formContextToken: InjectionKey<FormContext> =
+  Symbol('formContextToken')

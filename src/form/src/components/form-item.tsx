@@ -1,5 +1,15 @@
-import { computed, ComputedRef, defineComponent, inject, toRefs } from 'vue'
+import {
+  computed,
+  ComputedRef,
+  defineComponent,
+  inject,
+  provide,
+  ref,
+  toRefs
+} from 'vue'
+import { formContextToken } from '../form-type'
 import { FormItemProps, formItemProps, LabelDataType } from './form-item-type'
+import Validator from 'async-validator'
 
 export default defineComponent({
   name: 'GFormItem',
@@ -20,6 +30,45 @@ export default defineComponent({
       [`s-form-item-label--${labelData.value.labelSize}`]:
         labelData.value.layout === 'horizontal'
     }))
+    const errorMessage = ref('')
+    const showMessage = ref(false)
+    // form提供，强类型传递，不需要进行断言
+    const formCtx = inject(formContextToken)
+
+    const validate = () => {
+      if (!formCtx) {
+        console.warn('请在Form中使用FormItem')
+        return Promise.reject('请在Form中使用FormItem')
+      }
+      if (!props.field) {
+        console.warn('请在FormItem中设置field字段')
+        return Promise.reject('请在FormItem中设置field字段')
+      }
+      // 不需要校验规则
+      if (!formCtx.rules) {
+        return Promise.resolve({ result: true })
+      }
+      // 获取校验规则和数值
+      const itemRules = formCtx.rules[props.field] || undefined
+      if (!itemRules) {
+        return Promise.resolve({ result: true })
+      }
+      const val = formCtx.model[props.field]
+      // 校验，返回结果
+      // 创建一个校验的实例
+      const validator = new Validator({ [props.field]: itemRules })
+      return validator.validate({ [props.field]: val }, err => {
+        if (err) {
+          showMessage.value = true
+          errorMessage.value = err[0].message || '校验失败'
+        } else {
+          showMessage.value = false
+          errorMessage.value = ''
+        }
+      })
+    }
+    provide('FORM_ITEM_CTX', { validate })
+
     return () => {
       return (
         <div class={itemClasses.value}>
@@ -27,6 +76,10 @@ export default defineComponent({
           <span class={labelClass.value}>{props.label}</span>
           {/* control */}
           <div>{slots.default?.()}</div>
+          {/* error */}
+          {showMessage.value && (
+            <div class="error-message">{errorMessage.value}</div>
+          )}
         </div>
       )
     }

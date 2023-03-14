@@ -150,11 +150,12 @@
       layout="horizontal"
       :label-align="labelAlign"
       :label-size="labelSize"
+      :rules="rules"
     >
-      <GFormItem label="用户名：">
+      <GFormItem label="用户名：" field="user">
         <GInput v-model="model.user" />
       </GFormItem>
-      <GFormItem label="密码：">
+      <GFormItem label="密码：" field="password">
         <GInput v-model="model.password" type="password" />
       </GFormItem>
     </GForm>
@@ -167,6 +168,11 @@ import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
+
+const rules = ref({
+  user: [{ required: true, message: '必须输入用户名' }],
+  password: [{ required: true, message: '必须输入密码' }]
+})
 
 const model = ref({
   user: 'garril',
