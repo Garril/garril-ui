@@ -1,5 +1,6 @@
 import { Rules } from 'async-validator'
 import { ExtractPropTypes, InjectionKey, PropType } from 'vue'
+import { FormItemContext } from './components/form-item-type'
 export type LayoutType = 'vertical' | 'horizontal'
 export type LabelSizeType = 'sm' | 'md' | 'lg'
 export type LabelAlignType = 'start' | 'center' | 'end'
@@ -30,6 +31,8 @@ export type FormProps = ExtractPropTypes<typeof formProps>
 export type FormContext = {
   model: any
   rules?: Rules
+  addItem: (item: FormItemContext) => void
+  deleteItem: (item: FormItemContext) => void
 }
 // 在他provide的时候进行强类型传递
 export const formContextToken: InjectionKey<FormContext> =

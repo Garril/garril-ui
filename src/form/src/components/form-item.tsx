@@ -3,6 +3,8 @@ import {
   ComputedRef,
   defineComponent,
   inject,
+  onMounted,
+  onUnmounted,
   provide,
   ref,
   toRefs
@@ -67,8 +69,19 @@ export default defineComponent({
         }
       })
     }
-    provide('FORM_ITEM_CTX', { validate })
-
+    const formItemCtx = { validate }
+    provide('FORM_ITEM_CTX', formItemCtx)
+    // 全表单校验
+    onMounted(() => {
+      if (props.field) {
+        formCtx?.addItem(formItemCtx)
+      }
+    })
+    onUnmounted(() => {
+      if (props.field) {
+        formCtx?.deleteItem(formItemCtx)
+      }
+    })
     return () => {
       return (
         <div class={itemClasses.value}>

@@ -146,17 +146,22 @@
       </label>
     </p>
     <GForm
+      ref="loginFormRef"
       :model="model"
       layout="horizontal"
       :label-align="labelAlign"
       :label-size="labelSize"
       :rules="rules"
+      @form-submit="onLogin"
     >
       <GFormItem label="用户名：" field="user">
         <GInput v-model="model.user" />
       </GFormItem>
       <GFormItem label="密码：" field="password">
         <GInput v-model="model.password" type="password" />
+      </GFormItem>
+      <GFormItem>
+        <button>登录</button>
       </GFormItem>
     </GForm>
   </div>
@@ -169,6 +174,16 @@ import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
 
+const loginFormRef = ref()
+const onLogin = () => {
+  loginFormRef.value.validateFormData((valid: boolean) => {
+    if (valid) {
+      console.log('login success')
+    } else {
+      console.log('login failed')
+    }
+  })
+}
 const rules = ref({
   user: [{ required: true, message: '必须输入用户名' }],
   password: [{ required: true, message: '必须输入密码' }]
