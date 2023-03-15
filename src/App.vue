@@ -164,6 +164,27 @@
         <button>登录</button>
       </GFormItem>
     </GForm>
+
+    <GBaseModal v-model:isShow="isModalShow">
+      <div
+        style="
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 400px;
+          height: 400px;
+        "
+      >
+        <img src="./assets/img/pkq.png" alt="" />
+      </div>
+    </GBaseModal>
+    <button
+      style="border: 1px solid black; padding: 5px 10px; margin-left: 10px"
+      @click="openModalShow"
+    >
+      open Modal
+    </button>
   </div>
 </template>
 
@@ -173,6 +194,11 @@ import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
+
+const isModalShow = ref(false)
+const openModalShow = () => {
+  isModalShow.value = true
+}
 
 const loginFormRef = ref()
 const onLogin = () => {
