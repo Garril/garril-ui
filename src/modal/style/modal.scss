@@ -1,4 +1,49 @@
 @import '../src/components/base-modal.scss';
 
 .s-modal {
+  &-container {
+    position: relative;
+    margin: 15vh auto 50px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+    width: 30%;
+  }
+
+  &-header {
+    color: #606266;
+    padding: 20px;
+    padding-bottom: 10px;
+    margin-right: 16px;
+    word-break: break-all;
+  }
+
+  &-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+
+    &:hover {
+      cursor: pointer;
+
+      path {
+        fill: #409eff;
+      }
+    }
+  }
+
+  &-default {
+    padding: 30px 20px;
+    color: #606266;
+    font-size: 14px;
+    word-break: break-all;
+  }
+
+  &-footer {
+    padding: 20px;
+    padding-top: 10px;
+    text-align: right;
+    box-sizing: border-box;
+  }
 }

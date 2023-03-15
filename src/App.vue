@@ -165,7 +165,7 @@
       </GFormItem>
     </GForm>
 
-    <GBaseModal v-model:isShow="isModalShow">
+    <!-- <GBaseModal v-model:isShow="isModalShow">
       <div
         style="
           position: absolute;
@@ -184,7 +184,20 @@
       @click="openModalShow"
     >
       open Modal
-    </button>
+    </button> -->
+
+    <GModal v-model="visible" title="提示">
+      <span>this is a message!</span>
+      <template #footer>
+        <div>
+          <GButton style="margin-right: 12px" @click="visible = false"
+            >quit</GButton
+          >
+          <GButton @click="visible = false">yes</GButton>
+        </div>
+      </template>
+    </GModal>
+    <GButton @click="open"></GButton>
   </div>
 </template>
 
@@ -195,9 +208,13 @@ import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
 
+const visible = ref(false)
 const isModalShow = ref(false)
 const openModalShow = () => {
   isModalShow.value = true
+}
+const open = () => {
+  visible.value = true
 }
 
 const loginFormRef = ref()
