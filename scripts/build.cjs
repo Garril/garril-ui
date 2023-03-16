@@ -24,7 +24,7 @@ const cpnsDir = path.resolve(__dirname, '../src')
 
 // rollup配置（设置格式）
 const rollupOptions = {
-  // 外置
+  // 外置,最后不要把这些库打包到组件库
   external: ['vue', 'vue-router'],
   output: {
     globals: {
