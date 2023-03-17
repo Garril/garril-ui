@@ -1,8 +1,8 @@
 {
-    "name": "garril-ui",
+    "name": "button",
     "version": "0.0.5",
-    "main": "garril-ui.umd.js",
-    "module": "garril-ui.es.js",
+    "main": "index.umd.js",
+    "module": "index.umd.js",
     "author": "Garril",
     "description": "Practice building a cpn store",
     "repository": {

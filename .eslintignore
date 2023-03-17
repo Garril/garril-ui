@@ -1,0 +1,4 @@
+**/*.cjs
+build/*
+**/*.test.ts
+App.vue

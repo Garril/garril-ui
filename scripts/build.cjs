@@ -58,7 +58,7 @@ const preSetPackageJson = name => {
   if (name) {
     // 单个组件，输出对应的package.json
     fsExtra.outputFile(
-      path.resolve(outputDir, 'config/package.json'),
+      path.resolve(outputDir, `${name}/package.json`),
       fileStr,
       'utf-8'
     )
@@ -90,7 +90,7 @@ const buildAll = async name => {
       }
     })
   )
-  preSetPackageJson(name)
+  preSetPackageJson()
 }
 // 按需构建 (name: 组件/文件名)
 const buildSingle = async name => {
@@ -109,8 +109,7 @@ const buildSingle = async name => {
       }
     })
   )
-  // 只打一个组件，不需要传参
-  preSetPackageJson()
+  preSetPackageJson(name)
 }
 
 const buildLib = async () => {

@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes } from 'vue'
 import { paginationProps } from '../pagination-type'
 
 export const pagerProps = paginationProps

@@ -1,5 +1,5 @@
 import { Value } from 'async-validator'
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes } from 'vue'
 import { LabelAlignType, LabelSizeType, LayoutType } from '../form-type'
 
 export const formItemProps = {

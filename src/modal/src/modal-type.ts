@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes } from 'vue'
 
 export const modalProps = {
   modelValue: {

@@ -1,6 +1,6 @@
 {
-    "name": "garril-ui",
-    "version": "0.0.4",
+    "name": "modal",
+    "version": "0.0.5",
     "main": "index.umd.js",
     "module": "index.umd.js",
     "author": "Garril",
