@@ -186,7 +186,16 @@
       open Modal
     </button> -->
 
-    <GModal v-model="visible" title="提示">
+    <GModal v-model="visible" title="提示" :show-close="false" align-center>
+      <template #header="{ close }">
+        <div
+          class="my-header"
+          style="display: flex; justify-content: space-between; padding: 0 20px"
+        >
+          <h4>My slot title!</h4>
+          <GButton type="danger" @click="close">Close</GButton>
+        </div>
+      </template>
       <span>this is a message!</span>
       <template #footer>
         <div>
