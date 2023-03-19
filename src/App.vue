@@ -236,7 +236,7 @@
         style="display: inline-block"
       ></GIcon>
     </div>
-    <GTabs v-model="curTab">
+    <GTabs v-model="curTab" close-able add-able>
       <GTabItem id="home" title="home">首页</GTabItem>
       <GTabItem id="radio" title="radio">视频</GTabItem>
       <GTabItem id="article" title="article">文章</GTabItem>
