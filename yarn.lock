@@ -669,6 +669,18 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@floating-ui/core@^1.2.3":
+  version "1.2.4"
+  resolved "https://registry.npmmirror.com/@floating-ui/core/-/core-1.2.4.tgz#89e6311b021190c9e121fcf20306e76ac66e4066"
+  integrity sha512-SQOeVbMwb1di+mVWWJLpsUTToKfqVNioXys011beCAhyOIFtS+GQoW4EQSneuxzmQKddExDwQ+X0hLl4lJJaSQ==
+
+"@floating-ui/dom@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npmmirror.com/@floating-ui/dom/-/dom-1.2.4.tgz#e2eb2674f57fc182c425587e48ea43e336f4b8f8"
+  integrity sha512-4+k+BLhtWj+peCU60gp0+rHeR8+Ohqx6kjJf/lHMnJ8JD5Qj6jytcq1+SZzRwD7rvHKRhR7TDiWWddrNrfwQLg==
+  dependencies:
+    "@floating-ui/core" "^1.2.3"
+
 "@francoischalifour/autocomplete-core@^1.0.0-alpha.28":
   version "1.0.0-alpha.28"
   resolved "https://registry.npmmirror.com/@francoischalifour/autocomplete-core/-/autocomplete-core-1.0.0-alpha.28.tgz"

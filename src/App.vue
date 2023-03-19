@@ -242,6 +242,14 @@
       <GTabItem id="article" title="article">文章</GTabItem>
       <GTabItem id="profile" title="profile">个人</GTabItem>
     </GTabs>
+    <div
+      @click="changePopState"
+      style="width: 200px; border: 1px solid red"
+      ref="hostDom"
+    >
+      change pop state
+    </div>
+    <GPopOver v-model="isPopShow" :host-dom="hostDom">content in the popover</GPopOver>
   </div>
 </template>
 
@@ -251,6 +259,13 @@ import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
+
+const isPopShow = ref(false)
+const hostDom = ref()
+const changePopState = () => {
+  isPopShow.value = !isPopShow.value
+  console.log(isPopShow.value)
+}
 
 const curTab = ref('home')
 

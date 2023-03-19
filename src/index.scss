@@ -14,8 +14,10 @@
 @import 'modal/style/modal.scss';
 @import 'icon/style/icon.scss';
 @import 'tabs/style/tabs.scss';
+@import 'popover/style/popover.scss';
 
 body {
   // 眼睛要瞎了，大晚上的
   background-color: grey;
+  height: 2000px;
 }
