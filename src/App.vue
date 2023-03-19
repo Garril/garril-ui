@@ -236,6 +236,11 @@
         style="display: inline-block"
       ></GIcon>
     </div>
+    <GTabs v-model="curTab">
+      <GTabItem id="home" title="home">首页</GTabItem>
+      <GTabItem id="radio" title="radio">视频</GTabItem>
+      <GTabItem id="article" title="article">文章</GTabItem>
+    </GTabs>
   </div>
 </template>
 
@@ -245,6 +250,8 @@ import Test from './components/Test'
 import { TREE_TEST_DATA } from './tree/src/constant'
 import { LazyNodeResType } from './tree/src/hooks/type/use-tree-type'
 import { IFlatTreeNode } from './tree/src/tree-type'
+
+const curTab = ref('home')
 
 const visible = ref(false)
 const isModalShow = ref(false)
