@@ -207,6 +207,15 @@
       </template>
     </GModal>
     <GButton @click="open"></GButton>
+    <div>
+      <GIcon name="facebook" size="40"></GIcon>
+      <GIcon name="react" size="30"></GIcon>
+      <GIcon name="react" size="30px"></GIcon>
+      <GIcon name="vue" :size="30"></GIcon>
+      <span style="width: 50px">
+        <GIcon name="https://vitejs.dev/logo.svg" width="30"></GIcon>
+      </span>
+    </div>
   </div>
 </template>
 

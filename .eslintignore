@@ -2,3 +2,5 @@
 build/*
 **/*.test.ts
 App.vue
+assets/*
+**/iconfont.js

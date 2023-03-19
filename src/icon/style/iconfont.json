@@ -1,0 +1,30 @@
+{
+  "id": "3961810",
+  "name": "garril-ui",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "自用，组件库使用",
+  "glyphs": [
+    {
+      "icon_id": "6496026",
+      "name": "Vue",
+      "font_class": "vue",
+      "unicode": "e799",
+      "unicode_decimal": 59289
+    },
+    {
+      "icon_id": "6496027",
+      "name": "React",
+      "font_class": "react",
+      "unicode": "e79a",
+      "unicode_decimal": 59290
+    },
+    {
+      "icon_id": "13304131",
+      "name": "webpack",
+      "font_class": "webpack",
+      "unicode": "e6ae",
+      "unicode_decimal": 59054
+    }
+  ]
+}
