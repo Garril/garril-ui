@@ -19,6 +19,10 @@ export const iconProps = {
   color: {
     type: String,
     default: 'inherit'
+  },
+  element: {
+    type: String,
+    default: null
   }
 } as const
 export type IconProps = ExtractPropTypes<typeof iconProps>

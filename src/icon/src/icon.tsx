@@ -7,7 +7,7 @@ export default defineComponent({
   name: 'GIcon',
   props: iconProps,
   setup(props: IconProps, { attrs }) {
-    const { prefix, name, color } = toRefs(props)
+    const { prefix, name, color, element } = toRefs(props)
     // 根据类型，对size做转换
     const size = computed(() => {
       if (typeof props.size === 'string' && props.size !== 'inherit') {
@@ -20,6 +20,32 @@ export default defineComponent({
       }
       return props.size
     })
+    // svg显示
+    /* 
+      可以看到我们需要在svg中拿到对应icon的元件，
+      而元件，是从iconfont.js中拿到的，
+      在我们从官网导出icon项目的时候，生成的js文件
+    */
+    const svgIcon = (
+      <svg
+        class="icon"
+        style={{
+          width: size.value,
+          height: size.value
+        }}
+      >
+        {/* <use xlink:href="#icon-vue" fill={color.value}></use> */}
+        <use
+          xlink:href={`#${prefix.value}-${element.value}`}
+          fill={color.value}
+        ></use>
+      </svg>
+    )
+    /* 
+      下面的 http/https需要事先拿到地址
+      iconfont 需要在icon.scss或者iconfont.css中有对应的类的声明
+      （实现方式：伪类 content）
+    */
     // http/https图片资源
     const imgIcon = (
       // svg或其他图片，一旦设置都是单色，不能调整，除非换一张
@@ -46,6 +72,6 @@ export default defineComponent({
     // 直接return icon，根组件会继承非属性特性，父的width会直接继承，放到icon上
     // 但是如果icon外面包了一层icon_container，width就会不生效。-继承到icon_container上了
     // 所以进行展开非属性特性。---  attrs
-    return () => icon
+    return () => (element.value ? svgIcon : icon)
   }
 })

@@ -208,13 +208,33 @@
     </GModal>
     <GButton @click="open"></GButton>
     <div>
+      <div>以图标的方式，存到字体中</div>
       <GIcon name="facebook" size="40" color="skyblue"></GIcon>
       <GIcon name="react" size="30" color="red"></GIcon>
       <GIcon name="react" size="30px" color="blue"></GIcon>
       <GIcon name="vue" :size="30" color="green"></GIcon>
-      <span style="width: 50px; display: inline-block;">
+      <span style="width: 50px; display: inline-block">
         <GIcon name="https://vitejs.dev/logo.svg" width="30"></GIcon>
       </span>
+      <div>通过元件的方式引入到页面中，用svg显示（拓展性更强）</div>
+      <GIcon
+        element="react"
+        size="30"
+        color="red"
+        style="display: inline-block"
+      ></GIcon>
+      <GIcon
+        element="vue"
+        size="30px"
+        color="blue"
+        style="display: inline-block"
+      ></GIcon>
+      <GIcon
+        element="webpack"
+        size="30px"
+        color="blue"
+        style="display: inline-block"
+      ></GIcon>
     </div>
   </div>
 </template>
