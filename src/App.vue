@@ -208,11 +208,11 @@
     </GModal>
     <GButton @click="open"></GButton>
     <div>
-      <GIcon name="facebook" size="40"></GIcon>
-      <GIcon name="react" size="30"></GIcon>
-      <GIcon name="react" size="30px"></GIcon>
-      <GIcon name="vue" :size="30"></GIcon>
-      <span style="width: 50px">
+      <GIcon name="facebook" size="40" color="skyblue"></GIcon>
+      <GIcon name="react" size="30" color="red"></GIcon>
+      <GIcon name="react" size="30px" color="blue"></GIcon>
+      <GIcon name="vue" :size="30" color="green"></GIcon>
+      <span style="width: 50px; display: inline-block;">
         <GIcon name="https://vitejs.dev/logo.svg" width="30"></GIcon>
       </span>
     </div>

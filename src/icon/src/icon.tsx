@@ -7,9 +7,9 @@ export default defineComponent({
   name: 'GIcon',
   props: iconProps,
   setup(props: IconProps, { attrs }) {
-    const { prefix, name } = toRefs(props)
+    const { prefix, name, color } = toRefs(props)
+    // 根据类型，对size做转换
     const size = computed(() => {
-      // 根据类型，对size做转换
       if (typeof props.size === 'string' && props.size !== 'inherit') {
         // 做个简单的格式判断 --- px结尾
         if (!props.size.endsWith('px')) {
@@ -22,6 +22,7 @@ export default defineComponent({
     })
     // http/https图片资源
     const imgIcon = (
+      // svg或其他图片，一旦设置都是单色，不能调整，除非换一张
       <img
         src={props.name}
         style={{
@@ -37,7 +38,7 @@ export default defineComponent({
     const fontIcon = (
       <span
         class={[prefix.value + 'font', prefix.value + '-' + name.value]}
-        style={{ fontSize: size.value }}
+        style={{ fontSize: size.value, color: color.value }}
       ></span>
     )
     const icon = /http|https/.test(name.value) ? imgIcon : fontIcon

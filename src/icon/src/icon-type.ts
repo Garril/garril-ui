@@ -15,6 +15,10 @@ export const iconProps = {
     // type: [String, Number], --- ts报错
     type: [String, Number] as PropType<string | number>,
     default: 'inherit'
+  },
+  color: {
+    type: String,
+    default: 'inherit'
   }
 } as const
 export type IconProps = ExtractPropTypes<typeof iconProps>
