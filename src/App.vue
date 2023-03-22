@@ -249,8 +249,12 @@
     >
       change pop state
     </div>
-    <GPopOver v-model="isPopShow" :host-dom="hostDom" title="标题"
-      >content in the popover</GPopOver
+    <GPopOver
+      v-model="isPopShow"
+      :host-dom="hostDom"
+      title="标题"
+      placement="right"
+      ><div style="white-space: nowrap;">content in the popover</div></GPopOver
     >
   </div>
 </template>

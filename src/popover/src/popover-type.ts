@@ -1,3 +1,4 @@
+import { Placement } from '@floating-ui/dom'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const popoverProps = {
@@ -12,6 +13,14 @@ export const popoverProps = {
   title: {
     type: String,
     default: ''
+  },
+  showArrow: {
+    type: Boolean,
+    default: true
+  },
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'bottom'
   }
 } as const
 export type PopoverProps = ExtractPropTypes<typeof popoverProps>
