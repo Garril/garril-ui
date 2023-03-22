@@ -1,42 +1,21 @@
-import { computePosition } from '@floating-ui/dom'
-import { defineComponent, nextTick, ref, toRefs, watch } from 'vue'
+import { defineComponent, ref, toRefs } from 'vue'
 import { PopoverProps, popoverProps } from './popover-type'
+import BasePopover from './components/base-popover'
 
 export default defineComponent({
   name: 'GPopOver',
   props: popoverProps,
   emits: ['update:modalValue'],
-  setup(props: PopoverProps, { slots, attrs, emit }) {
-    const { modelValue, hostDom } = toRefs(props)
-    // 气泡卡片
-    const overlayRef = ref()
-    // 计算定位
-    const updatePosition = () => {
-      computePosition(hostDom.value, overlayRef.value).then(({ x, y }) => {
-        Object.assign(overlayRef.value.style, {
-          left: x + 'px',
-          top: y + 'px'
-        })
-      })
-    }
-    watch(
-      modelValue,
-      newVal => {
-        if (newVal) {
-          nextTick(updatePosition)
-        }
-      },
-      {
-        immediate: true
-      }
-    )
+  setup(props: PopoverProps, { slots }) {
+    const { modelValue, title } = toRefs(props)
 
     return () => (
       <>
         {modelValue.value && (
-          <div ref={overlayRef} class="s-popover" {...attrs}>
+          <BasePopover class="s-popover" {...props}>
+            <h4 class="s-popover-title">{title.value}</h4>
             {slots.default?.()}
-          </div>
+          </BasePopover>
         )}
       </>
     )

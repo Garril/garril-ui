@@ -1,8 +1,22 @@
-.s-popover {
+.s-base-popover {
   position: absolute;
   background-color: #fff;
   border: 1px solid #626262;
   z-index: 10;
   min-width: 100px;
   min-height: 16px;
+}
+.s-popover {
+  background: #ffffff;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,.12);
+  width: 200px;
+  
+  &-title {
+    color: #303133;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
 }

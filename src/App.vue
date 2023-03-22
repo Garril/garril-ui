@@ -249,7 +249,9 @@
     >
       change pop state
     </div>
-    <GPopOver v-model="isPopShow" :host-dom="hostDom">content in the popover</GPopOver>
+    <GPopOver v-model="isPopShow" :host-dom="hostDom" title="标题"
+      >content in the popover</GPopOver
+    >
   </div>
 </template>
 
@@ -264,7 +266,6 @@ const isPopShow = ref(false)
 const hostDom = ref()
 const changePopState = () => {
   isPopShow.value = !isPopShow.value
-  console.log(isPopShow.value)
 }
 
 const curTab = ref('home')

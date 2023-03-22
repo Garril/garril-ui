@@ -1,6 +1,6 @@
 import { ExtractPropTypes, PropType } from 'vue'
 
-export const popoverProps = {
+export const basePopoverProps = {
   modelValue: {
     type: Boolean,
     default: false
@@ -8,10 +8,6 @@ export const popoverProps = {
   hostDom: {
     type: Object as PropType<HTMLElement>,
     default: null
-  },
-  title: {
-    type: String,
-    default: ''
   }
 } as const
-export type PopoverProps = ExtractPropTypes<typeof popoverProps>
+export type BasePopoverProps = ExtractPropTypes<typeof basePopoverProps>
