@@ -242,7 +242,8 @@
       <GTabItem id="article" title="article">文章</GTabItem>
       <GTabItem id="profile" title="profile">个人</GTabItem>
     </GTabs>
-    <div
+
+    <!-- <div
       @click="changePopState"
       style="width: 200px; border: 1px solid red"
       ref="hostDom"
@@ -256,6 +257,17 @@
       placement="right"
       ><div style="white-space: nowrap;">content in the popover</div></GPopOver
     >
+  </div> -->
+    <div
+      @click="changePopState"
+      style="border: 1px solid red"
+      ref="hostDom"
+    >
+      change pop state
+    </div>
+    <GPopOver v-model="isPopShow" :host-dom="hostDom" title="标题">
+      <div style="white-space: nowrap">content in the popover</div>
+    </GPopOver>
   </div>
 </template>
 

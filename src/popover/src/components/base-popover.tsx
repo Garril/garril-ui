@@ -1,5 +1,5 @@
-import { computePosition, arrow, offset } from '@floating-ui/dom'
-import { defineComponent, nextTick, ref, toRefs, watch } from 'vue'
+import { computePosition, arrow, offset, autoPlacement } from '@floating-ui/dom'
+import { defineComponent, nextTick, onUnmounted, ref, toRefs, watch } from 'vue'
 import { BasePopoverProps, basePopoverProps } from './base-popover-type'
 
 export default defineComponent({
@@ -8,10 +8,12 @@ export default defineComponent({
   emits: ['update:modalValue'],
   setup(props: BasePopoverProps, { slots, attrs }) {
     const { modelValue, hostDom, showArrow, placement } = toRefs(props)
+
     // 箭头ref
     const arrowRef = ref()
     // 气泡卡片
     const overlayRef = ref()
+
     // 计算定位
     const updatePosition = () => {
       const middleware = []
@@ -19,9 +21,14 @@ export default defineComponent({
         middleware.push(offset(8))
         middleware.push(arrow({ element: arrowRef.value }))
       }
+      // 用户如果没有设置placement，依靠autoPlacement中间件，做个自动调整定位
+      if (!placement.value) {
+        middleware.push(autoPlacement())
+      }
+      // 在滚动、窗口尺寸、宿主元素的位置大小发生变化。这3种情况下，需要重新自动调整定位
       computePosition(hostDom.value, overlayRef.value, {
         middleware,
-        placement: placement.value
+        placement: placement.value || 'bottom'
       }).then(({ x, y, middlewareData, placement }) => {
         Object.assign(overlayRef.value.style, {
           left: x + 'px',
@@ -55,17 +62,39 @@ export default defineComponent({
         }
       })
     }
+
+    // 创建mutationserver监听宿主元素的状态变化
+    const mutationObserver = new MutationObserver(entries => {
+      // entries可以拿到变化的项，做相应的，粒度更小的更新，可优化
+      updatePosition()
+    })
+
     watch(
       modelValue,
       newVal => {
         if (newVal) {
           nextTick(updatePosition)
+          // 监听两个事件 以及宿主元素尺寸、定位变化
+          hostDom.value &&
+            mutationObserver.observe(hostDom.value, { attributes: true })
+          window.addEventListener('resize', updatePosition)
+          window.addEventListener('scroll', updatePosition)
+        } else {
+          mutationObserver.disconnect()
+          window.removeEventListener('resize', updatePosition)
+          window.removeEventListener('scroll', updatePosition)
         }
       },
       {
         immediate: true
       }
     )
+    // popover频繁的弹出和销毁
+    onUnmounted(() => {
+      mutationObserver.disconnect()
+      window.removeEventListener('resize', updatePosition)
+      window.removeEventListener('scroll', updatePosition)
+    })
 
     return () => (
       <>
