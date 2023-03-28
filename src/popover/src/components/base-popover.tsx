@@ -64,6 +64,7 @@ export default defineComponent({
     }
 
     // 创建mutationserver监听宿主元素的状态变化
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mutationObserver = new MutationObserver(entries => {
       // entries可以拿到变化的项，做相应的，粒度更小的更新，可优化
       updatePosition()
