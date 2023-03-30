@@ -48,7 +48,6 @@ export default defineComponent({
     */
     // http/https图片资源
     const imgIcon = (
-      // svg或其他图片，一旦设置都是单色，不能调整，除非换一张
       <img
         src={props.name}
         style={{
