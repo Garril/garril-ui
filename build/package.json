@@ -1,6 +1,6 @@
 {
     "name": "garril-ui",
-    "version": "0.0.5",
+    "version": "0.1.0",
     "main": "garril-ui.umd.js",
     "module": "garril-ui.es.js",
     "author": "Garril",
