@@ -61,9 +61,9 @@ export default defineComponent({
             </div>
           )}
           {/* 内容default */}
-          <div className="s-modal-default">{slots.default?.()}</div>
+          <div class="s-modal-default">{slots.default?.()}</div>
           {/* 操作区footer */}
-          <div className="s-modal-footer">{slots.footer?.()}</div>
+          <div class="s-modal-footer">{slots.footer?.()}</div>
         </div>
       </BaseModal>
     )

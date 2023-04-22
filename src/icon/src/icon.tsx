@@ -34,9 +34,14 @@ export default defineComponent({
           height: size.value
         }}
       >
-        {/* <use xlink:href="#icon-vue" fill={color.value}></use> */}
+        {/* <use xlink:href="#icon-vue" fill={color.value}></use>
+          <use
+            xlink:href={`#${prefix.value}-${element.value}`}
+            fill={color.value}
+          ></use>
+        */}
         <use
-          xlink:href={`#${prefix.value}-${element.value}`}
+          xlinkHref={`#${prefix.value}-${element.value}`}
           fill={color.value}
         ></use>
       </svg>
